@@ -1,0 +1,41 @@
+RunBook for Story1: Setup on Local installations
+
+1.   Go to https://step.exense.ch/knowledgebase/admindocs/installation/quick-setup/#download-step-on-prem link, follow On-Premise installation tutorial
+2.   Download Oracle JDK 11 on your laptop, https://www.oracle.com/java/technologies/downloads/#java11 , set environment variable JAVA_HOME pointing to JDK folder in your Java installation, then set path variable which will be %JAVA_HOME%\bin on your machine
+3.    Download mongoDB using this link:   https://fastdl.mongodb.org/win32/mongodb-win32-x86_64-2008plus-ssl-4.0.9-signed.msi
+4.    you can double-check into Windows service list that the service has been properly installed and then you can start it : MongoDB is running on your laptop
+5.    Download Step Controller and Step Agent in archive format from GitHub: https://github.com/exense/step-distribution/releases/tag/3.23.1, Unzip in a folder and Set JAVA_PATH in bin/startAgent.bat and in controller /bin/startController.bat
+6.    Double check configuration of Controller in step.properties, below settings:
+port=8080 -> Controller GUI will be accessible on port 8080
+grid.port=8081 -> Agents will connect to the Controller on port 8081
+db.host=127.0.0.1 -> Controller will try to access to MongoDB running on localhost
+db.port=27017 -> Controller will try to access to MongoDB on port 27017
+execute startController.bat
+ open  http://localhost:8080/ and you will be navigated to StepUI, where you can plan your executions, you can install as a service as well but did not prefer this option 
+
+7.    Agent, once JAVA_PATH is configured then execute startAgent.bat, go to Going in the Step UI to Status -> Agents and you will see the Agent running
+8.    You can validate your setup using  http://localhost:8080
+9.    You have your IDE in your laptop, Git installation, Chromedriver getting started at https://chromedriver.chromium.org/getting-started go
+install it on your laptop and become familiar with its usage , either setup globally or give the path to it.
+9.    Once you perform your setup, open any IDE and create new project Jva Project, Maven Project in IDE
+10.   After familiarity with Step and Keyword creation, naviagte to https://www.postfinance.ch/ap/ga/ob/html/finance/transfer/enter-payment website
+11.   Locate all the necessory webelements and locators from website
+12. For Stroy2: to automate Payment Pages, First starting PaymentPage which is loaded when URL is Open:
+    A. PaymentPage Class contains all the WebElement from first Page and all associated methods are defined in same class in order to reuse them later on in the code
+	B. PaymentDetails Class contains all the WebElement from the page where user detail is filled, all associated methods are defined in same class in order to reuse them later on in the code
+	C. PaymentOverview Class contains all the WebElement from the page where overview of payment is filled, all associated methods are defined in same class in order to reuse them later on in the code
+	D. DemoVersionPage Class contains all the WebElement from the page where overview of payment is filled, all associated methods are defined in same class in order to reuse them later on in the code
+	
+13. For Story2: After creating all WebElements, all PageFactory Objects are initialized on PracticalPostFinance Class
+14. For Story2: All the KeyWords are generated in PaymentKeyword Class where extended AbstractKeyword Class (there are many methods we can use to become code more parameterized, and dynamic instead of hardcoding it))
+15. For Story2: All the Unit Test are written in PaymentUnitTest 
+16. For Story2: All the KeyWord generated are called and unit tests are developed for Keywords is used to run on StepUI in PaymentSeleniumKeywordTest.
+
+17. After locally compile your project and run it using maven 
+18. Create the jar using mvn  clean package command a jar and and upload this jar in Step as a upload Package in Keyword Package, 
+Plan your test case and and run it using Step UI and read the logs in case test case fails and also can read results for test case passed
+
+
+
+
+
